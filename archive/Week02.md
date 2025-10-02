@@ -1,6 +1,8 @@
 # Week 02
 
 ## 내용
+- 1주차와 달리 별도 key 파일 없이 GitHub OIDC 기반(Keyless)으로 서명 수행
+- 워크플로우 실행 시 Fulcio가 OIDC 토큰으로 단기 인증서 발급. 발급된 인증서로 cosign이 이미지 서명하고 Rekor 로그에 기록
 
 ## 결과
 1. 워크플로우 생성 및 실행 <br>
