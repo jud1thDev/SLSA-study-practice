@@ -50,6 +50,9 @@ jobs:
 
       - name: Verify
         run: |
-          cosign verify "$IMAGE" # cosign 서명이 존재하는지
-          --certificate-oidc-issuer "https://token.actions.githubusercontent.com" # GitHub Actions OIDC에서 발급된 것인지
-          --certificate-identity-regexp "https://github.com/${{ github.repository }}/.*" # 그 인증서의 주체(identity)가 내 repo와 일치하는지
+          cosign verify "$IMAGE" \
+            --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+            --certificate-identity-regexp "https://github.com/${{ github.repository }}/.*"
+          # - cosign verify "$IMAGE" → 이미지에 서명이 있는지 확인
+          # - --certificate-oidc-issuer → GitHub Actions OIDC에서 발급된 인증서인지 확인
+          # - --certificate-identity-regexp → 인증서 identity가 내 repo와 일치하는지 확인
