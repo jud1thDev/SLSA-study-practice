@@ -47,3 +47,16 @@ The following checks were performed on each of these signatures:
 ```
 
 - 지금 본 메시지는 ghcr.io에 올린 hello-slsa:v1 이미지가 cosign을 통해 서명되었고, 그 서명이 네가 가진 공개키로 올바르게 검증되었다는 뜻(누가 만든 건지 신뢰할 수 있고, 중간에 변조되지 않았다는 보장)
+
+### TIL: 이미지 서명/검증 흐름
+![img.png](img/img.png)
+1. 개발자나 CI/CD 파이프라인에서 이미지를 빌드하고 레지스트리에 Push
+2. cosign sign 실행 시 → OIDC 로그인 요청 발생: cosign이 서명을 하기 위해 “누가 서명하는지” 신원 확인 목적 <br>
+   % OpenID Connect: OAuth 2.0 위에 만들어진 인증 표준 프로토콜
+3. 사용자가 GitHub 계정으로 로그인하면, Fulcio라는 인증 기관이 해당 계정에 기반한 짧은 수명 인증서를 발급
+4. cosign이 그 인증서를 사용해서 Docker 이미지에 서명을 붙임
+5. 생성된 서명과 관련 메타데이터가 Rekor 로그에 기록됨
+6. 다른 사용자의 검증
+   - 서명 자체가 올바른지 확인 
+   - 인증서가 Fulcio Root CA 기준으로 유효한지 확인 
+   - Rekor 로그에 해당 서명 기록이 존재하는지 확인
