@@ -55,7 +55,7 @@ kubectl get role -n default
 kubectl get rolebinding -n default
 ```
 이후 다시 pod 목록 조회하면.. <br>
-![week03_result04.png](../img/week03_result04.png) <br>
+![week03_result04.png](../../SLSA-LEVEL-UP/3주차/yujung/week03_result04.png) <br>
 PodList를 정상적으로 조회하는 것을 확인할 수 있다!
 RBAC(Role + RoleBinding 적용)했으므로!
 
