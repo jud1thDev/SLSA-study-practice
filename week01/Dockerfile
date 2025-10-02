@@ -1,6 +1,6 @@
 FROM golang:1.25.1 AS builder
 WORKDIR /app
-COPY . .
+COPY .. .
 RUN go build -o hello-slsa
 
 FROM gcr.io/distroless/base-debian12

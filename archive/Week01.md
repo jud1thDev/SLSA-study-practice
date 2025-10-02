@@ -3,6 +3,7 @@
 ## 내용
 - 간단한 Go 웹 서버 애플리케이션을 Docker 이미지로 빌드하고 컨테이너 실행
 - 빌드한 이미지에 대해 cosign을 이용해 키 생성 후 서명(Sign) 및 공개키 기반 검증 수행
+- [week01](../week01)
 
 ## 결과
 1. Docker 컨테이너 실행 <br>
@@ -13,8 +14,8 @@
    ![week01_result03.png](../img/week01_result03.png)
    ![week01_result03-2.png](../img/week01_result03-2.png)
 4. 이미지 서명에 사용할 키 생성 <br>
-   [cosign.key](../cosign.key) <br>
-   [cosign.pub](../cosign.pub)
+   [cosign.key](../week01/cosign.key) <br>
+   [cosign.pub](../week01/cosign.pub)
 5. 이미지 서명 및 확인 <br>
    ![week01_result05.png](../img/week01_result05.png)
 

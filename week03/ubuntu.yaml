@@ -1,0 +1,11 @@
+apiVersion: v1              # 사용하는 쿠버네티스 API 버전
+kind: Pod                   # 리소스 타입: Pod
+metadata:
+  name: ubuntu              # Pod 이름
+  namespace: default        # 배포될 네임스페이스
+spec:                       # Pod의 구체적인 스펙
+  serviceAccountName: demo-sa  # 이 Pod가 사용할 ServiceAccount 이름
+  containers:
+    - name: ubuntu            # 컨테이너 이름
+      image: ubuntu:22.04     # 사용할 이미지
+      command: ["sleep", "3600"] # 실행할 명령어: 3600초 동안 sleep (즉, 1시간 동안 실행 유지)
