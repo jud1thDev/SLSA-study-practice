@@ -58,6 +58,10 @@ kubectl get rolebinding -n default
 ![week03_result04.png](../img/week03_result04.png) <br>
 RBAC(Role + RoleBinding 적용)했으므로 PodList를 정상적으로 조회하는 것을 확인할 수 있다!
 
+4-2. k9s
+- k9s = 클러스터를 잘 다룰 수 있게 도와주는 GUI툴
+![week03_result04-2.png](../img/week03_result04-2.png)
+
 5. 클러스터 정리
 ```bash
 apt update && apt install curl -y
