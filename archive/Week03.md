@@ -42,7 +42,7 @@ curl --cacert $CACERT --header "Authorization: Bearer $TOKEN" \
   $APISERVER/api/v1/namespaces/default/pods
 ```
 ![week03_result03.png](../img/week03_result03.png)
-→ "message": "pods is forbidden: User \"system:serviceaccount:default:demo-sa\" cannot list resource \"pods\" in API group \"\" in the namespace \"default\"" <br>
+→ `"message": "pods is forbidden: User \"system:serviceaccount:default:demo-sa\" cannot list resource \"pods\" in API group \"\" in the namespace \"default\""` <br>
 demo-sa라는 ServiceAccount는 존재하지만, 아직 pods 리소스를 조회할 권한이 없
 
 4. Role/RoleBinding을 적용 <br>
