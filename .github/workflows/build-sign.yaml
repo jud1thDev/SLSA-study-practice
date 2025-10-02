@@ -20,6 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # IMAGE 소문자로 변환해서 env에 저장
+      # 깃허브 repository명이 전부 소문자라면 생략 가능...
+      - name: Set IMAGE env (lowercase)
+        run: |
+          IMAGE=ghcr.io/${{ github.repository }}:sha-${{ github.sha }}
+          IMAGE=$(echo "$IMAGE" | tr '[:upper:]' '[:lower:]')
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
       # GHCR 로그인
       - name: Log in to GHCR
         run: echo "${{ github.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
