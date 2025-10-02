@@ -4,3 +4,4 @@
 ![Hits](https://visitor-badge.laobi.icu/badge?page_id=jud1thDev.SLSA-study-practice)
 
 [Week01.md](archive/Week01.md)
+[Week02.md](archive/Week02.md)

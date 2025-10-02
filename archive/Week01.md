@@ -6,17 +6,17 @@
 
 ## 결과
 1. Docker 컨테이너 실행
-   ![week01_result01.png](img/week01_result01.png)
+   ![week01_result01.png](../img/week01_result01.png)
 2. 동작 테스트
-   ![week01_result02.png](img/week01_result02.png)
+   ![week01_result02.png](../img/week01_result02.png)
 3. 이미지 서명/검증
-   ![week01_result03.png](img/week01_result03.png)
-   ![week01_result03-2.png](img/week01_result03-2.png)
+   ![week01_result03.png](../img/week01_result03.png)
+   ![week01_result03-2.png](../img/week01_result03-2.png)
 4. 이미지 서명에 사용할 키 생성
-   [cosign.key](cosign.key) <br>
-   [cosign.pub](cosign.pub)
+   [cosign.key](../cosign.key) <br>
+   [cosign.pub](../cosign.pub)
 5. 이미지 서명 및 확인
-   ![week01_result05.png](img/week01_result05.png)
+   ![week01_result05.png](../img/week01_result05.png)
 
 ```bash
 Verification for [ghcr.io/jud1thdev/hello-slsa:v1](http://ghcr.io/jud1thdev/hello-slsa:v1) --
@@ -47,7 +47,7 @@ The following checks were performed on each of these signatures:
 
 ## TIL
 ### 이미지 서명/검증 흐름
-![img.png](img/img.png)
+![img.png](../img/img.png)
 1. 개발자나 CI/CD 파이프라인에서 이미지를 빌드하고 레지스트리에 Push
 2. cosign sign 실행 시 → OIDC 로그인 요청 발생: cosign이 서명을 하기 위해 “누가 서명하는지” 신원 확인 목적 <br>
    % OpenID Connect: OAuth 2.0 위에 만들어진 인증 표준 프로토콜
