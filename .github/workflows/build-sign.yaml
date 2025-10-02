@@ -2,7 +2,7 @@ name: Build & Sign Image
 
 on:
   push:
-    branches: [ main ]
+    branches: [ ] # 현재 워크플로우 중단 상태 ~,~
   workflow_dispatch:
 
 jobs:
