@@ -43,7 +43,7 @@ curl --cacert $CACERT --header "Authorization: Bearer $TOKEN" \
 ```
 ![week03_result03.png](../img/week03_result03.png)
 → `"message": "pods is forbidden: User \"system:serviceaccount:default:demo-sa\" cannot list resource \"pods\" in API group \"\" in the namespace \"default\""` <br>
-demo-sa라는 ServiceAccount는 존재하지만, 아직 pods 리소스를 조회할 권한이 없
+demo-sa라는 ServiceAccount는 존재하지만, 아직 pods 리소스를 조회할 권한이 없음
 
 4. Role/RoleBinding을 적용 <br>
 [role.yaml](../week03/role.yaml) <br>
@@ -56,8 +56,7 @@ kubectl get rolebinding -n default
 ```
 이후 다시 pod 목록 조회하면.. <br>
 ![week03_result04.png](../img/week03_result04.png) <br>
-PodList를 정상적으로 조회하는 것을 확인할 수 있다!
-RBAC(Role + RoleBinding 적용)했으므로!
+RBAC(Role + RoleBinding 적용)했으므로 PodList를 정상적으로 조회하는 것을 확인할 수 있다!
 
 5. 클러스터 정리
 ```bash
