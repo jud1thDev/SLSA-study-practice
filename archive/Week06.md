@@ -135,49 +135,49 @@ GitHub Actions 워크플로우 수동 실행
 ArgoCD가 변경사항 감지 및 자동 Sync
 → **서명된 이미지가 정상적으로 배포됨**
 
-**ArgoCD 자동 Sync 확인 명령어:**
 ```bash
 # ArgoCD 애플리케이션 상태 확인
 kubectl get application slsa-demo -n argocd
+```
 
+```bash
 # ArgoCD 컨트롤러 로그 확인
 kubectl logs -n argocd -l app.kubernetes.io/name=argocd-application-controller --tail=20
+```
 
-# Kubernetes 이벤트 확인
-kubectl get events -n slsa-demo --sort-by='.lastTimestamp'
-
-# 현재 배포된 이미지 확인
-kubectl get deployment slsa-demo -n slsa-demo -o jsonpath='{.spec.template.spec.containers[0].image}'
-
+```bash
 # Pod 상태 확인
 kubectl get pods -n slsa-demo
 ```
 
-**확인 결과:**
+![week06_practice04.png](../img/week06_practice04.png)
+
 - ✅ Sync Status: `Synced`
 - ✅ Health Status: `Healthy`
-- ✅ 새로운 서명된 이미지로 배포 완료
+
+성공적으로 sync된 것을 확인할 수 있다.
 
 ### 8. 미서명 이미지 배포 차단 테스트
 
 로컬에서 서명 없이 이미지 빌드 및 푸시
 ```bash
-docker build -t kiku99/slsa:unsigned .
-docker push kiku99/slsa:unsigned
+cd week06
+docker build -t jud1th/slsa:unsigned .
+docker push jud1th/slsa:unsigned
 ```
 
 deployment.yaml의 image를 미서명 이미지로 수정
 ```yaml
-image: kiku99/slsa:unsigned
+image: jud1th/slsa:unsigned
 ```
 
 Git commit & push 후 ArgoCD Sync 시도
 → **Kyverno 정책에 의해 배포 차단됨!**
 
-**차단 메시지 예시:**
+차단 메시지:
 ```
 Error: admission webhook "mutate.kyverno.svc-fail" denied the request: 
-image verification failed for kiku99/slsa:unsigned: 
+image verification failed for jud1th/slsa:unsigned: 
 failed to verify signature: no matching signatures
 ```
 
