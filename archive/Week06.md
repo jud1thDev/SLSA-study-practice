@@ -165,44 +165,22 @@ failed to verify signature: no matching signatures
 - 정책 기반으로 요청을 검증(Validating)하거나 수정(Mutating)할 수 있음
 - OPA Gatekeeper, Kyverno 같은 Policy Engine이 Admission Controller를 확장하여 정책을 적용함
 
-### 이미지 서명 게이트의 중요성
-- 공급망 보안의 **마지막 방어선** 역할
-- 서명되지 않은 이미지는 클러스터에 진입할 수 없도록 차단
-- CI/CD 파이프라인에서 생성된 이미지가 변조되지 않았음을 보장
-
-### Cosign Keyless Signing
-- Week01에서는 키 페어(cosign.key/cosign.pub)를 생성하여 서명했지만, 이번 주차에서는 **Keyless 방식** 사용
-- OIDC(OpenID Connect)를 통해 GitHub 계정으로 인증
-- Fulcio가 짧은 수명의 인증서를 발급하고, Rekor에 서명 로그를 기록
-- 개인 키를 관리할 필요 없이 안전하게 서명 가능
-
-### GitOps의 장점
-- Git을 Single Source of Truth로 활용
-- 모든 배포 이력이 Git에 기록되어 **추적 가능(Auditable)**
-- ArgoCD가 Git과 클러스터 상태를 자동으로 동기화
-- 롤백이 간단함 (Git 커밋만 되돌리면 됨)
-
 ### Kyverno vs OPA Gatekeeper
 - **Kyverno**: Kubernetes 네이티브 YAML 방식, 학습 곡선이 낮음
 - **OPA Gatekeeper**: Rego 언어 사용, 더 복잡하지만 강력한 정책 표현 가능
 - 둘 다 이미지 서명 검증을 지원하며, 목적에 따라 선택 가능
 
-### 전체 흐름 요약
-```
-1. 개발자가 코드 푸시
-   ↓
-2. GitHub Actions가 이미지 빌드 & Cosign으로 서명
-   ↓
-3. 서명된 이미지를 Registry에 Push
-   ↓
-4. Manifest 업데이트 & Git Push
-   ↓
-5. ArgoCD가 Git 변경사항 감지 & Sync
-   ↓
-6. Admission Controller가 배포 요청 가로챔
-   ↓
-7. Kyverno가 이미지 서명 검증
-   ↓
-8-1. 서명 유효 → 배포 승인
-8-2. 서명 없음/무효 → 배포 거부
-```
+### 이미지 서명 게이트의 중요성
+- 공급망 보안의 **마지막 방어선** 역할
+- 서명되지 않은 이미지는 클러스터에 진입할 수 없도록 차단
+- CI/CD 파이프라인에서 생성된 이미지가 변조되지 않았음을 보장
+
+### GitOps
+- 모든 배포 상태를 Git으로 관리하는 방식
+- 모든 배포 이력이 Git에 기록되어 **추적 가능(Auditable)**
+- 롤백이 간단함 (Git 커밋만 되돌리면 됨)
+
+### ArgoCD
+- 사람이 kubectl 안 쳐도 알아서 배포해주는 GitOps 도구
+- Git 저장소를 Kubernetes의 Single Source of Truth로 삼아, 자동으로 동기화하고 배포 상태를 관리
+- Kubernetes 환경의 배포 상태 = Git의 코드 상태
