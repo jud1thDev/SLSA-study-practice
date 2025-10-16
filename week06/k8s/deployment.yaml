@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: jud1th/slsa:sha-1bb46295b675b84b165b6283d4978208995c07fa
+          image: jud1th/slsa:unsigned
           ports:
             - containerPort: 8080
 
