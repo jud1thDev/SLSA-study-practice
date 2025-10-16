@@ -1,7 +1,9 @@
 name: Build & Sign Image (Week 06)
 # build-sign.yaml
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build-sign:
