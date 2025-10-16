@@ -171,15 +171,32 @@ deployment.yaml의 image를 미서명 이미지로 수정
 image: jud1th/slsa:unsigned
 ```
 
-Git commit & push 후 ArgoCD Sync 시도
-→ **Kyverno 정책에 의해 배포 차단됨!**
+(이미 이전 단계에서 진행함) Kyverno 정책 적용
+```bash
+kubectl apply -f week06/policy/verfiy-image-signature.yaml
+```
 
-차단 메시지:
+미서명 이미지 배포 시도
+```bash
+kubectl set image deployment/slsa-demo app=jud1th/slsa:unsigned -n slsa-demo
 ```
-Error: admission webhook "mutate.kyverno.svc-fail" denied the request: 
-image verification failed for jud1th/slsa:unsigned: 
-failed to verify signature: no matching signatures
+
+Kyverno에 의한 배포 차단 확인
+
+![week06_practice05.png](../img/week06_practice05.png)
+
 ```
+error: failed to patch image update to pod template: admission webhook "mutate.kyverno.svc-fail" denied the request:
+
+resource Deployment/slsa-demo/slsa-demo was blocked due to the following policies
+
+verify-signed-images:
+  autogen-check-signature: "failed to verify image docker.io/jud1th/slsa:unsigned:
+    .attestors[0].entries[0].keyless: failed to get roots from fulcio: initializing
+    tuf: updating local metadata and targets: error updating to TUF remote mirror:
+    invalid key"
+```
+Kyverno 정책이 미서명 이미지 배포를 성공적으로 차단하고, 서명된 이미지만 배포 가능한 보안 환경이 구축된 것을 확인할 수 있다.
 
 ## TIL
 
