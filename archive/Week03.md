@@ -7,7 +7,7 @@
   - RBAC 권한에 따라 pod 목록 조회가 성공하는지 확인
 
 ## 결과
-1. 클러스터 생성
+### 1. 클러스터 생성
 ```bash
 kind create cluster --name slsa-study
 kubectl cluster-info
@@ -15,7 +15,7 @@ kubectl get node # get 명령어는 확인용
 ```
 ![week03_result01.png](../img/week03_result01.png)
 
-2. 테스트용 ubuntu Pod 배포
+### 2. 테스트용 ubuntu Pod 배포
 ```bash
 kubectl apply -f ubuntu.yaml
 kubectl get pod
@@ -31,7 +31,7 @@ curl 설치
 apt update && apt install curl -y
 ```
 
-3. pod 목록 조회
+### 3. pod 목록 조회
 ```bash
 APISERVER=https://kubernetes.default.svc
 TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
@@ -45,7 +45,7 @@ curl --cacert $CACERT --header "Authorization: Bearer $TOKEN" \
 → `"message": "pods is forbidden: User \"system:serviceaccount:default:demo-sa\" cannot list resource \"pods\" in API group \"\" in the namespace \"default\""` <br>
 demo-sa라는 ServiceAccount는 존재하지만, 아직 pods 리소스를 조회할 권한이 없음
 
-4. Role/RoleBinding을 적용 <br>
+### 4. Role/RoleBinding을 적용
 [role.yaml](../week03/role.yaml) <br>
 [rolebinding.yaml](../week03/rolebinding.yaml)
 ```bash
@@ -58,11 +58,12 @@ kubectl get rolebinding -n default
 ![week03_result04.png](../img/week03_result04.png) <br>
 RBAC(Role + RoleBinding 적용)했으므로 PodList를 정상적으로 조회하는 것을 확인할 수 있다!
 
-4-2. k9s
+###  4-2. k9s
 - k9s = 클러스터를 잘 다룰 수 있게 도와주는 GUI툴
+- 그냥 k9s 라고 명령어 치면 진입
 ![week03_result04-2.png](../img/week03_result04-2.png)
 
-5. 클러스터 정리
+### 5. 클러스터 정리
 ```bash
 apt update && apt install curl -y
 ```
