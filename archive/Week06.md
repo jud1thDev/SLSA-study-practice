@@ -200,20 +200,22 @@ Kyverno 정책이 미서명 이미지 배포를 성공적으로 차단하고, �
 
 ## TIL
 
+### 이미지 서명 게이트
+- 우리가 만든 애플리케이션은 Docker 이미지라는 형태로 배포됨. 이 이미지를 누군가 몰래 바꾸면? → 악성 코드가 들어갈 수 있음.
+- 이미지 서명 게이트: 서명이 없으면, Kubernetes가 배포를 거부하도록 막는 장치
+- CI/CD 파이프라인에서 생성된 이미지가 변조되지 않았음을 보장
+
 ### Admission Controller의 역할
-- Kubernetes에서 **모든 리소스 생성 요청을 가로채는 게이트웨이 역할**
-- 정책 기반으로 요청을 검증(Validating)하거나 수정(Mutating)할 수 있음
-- OPA Gatekeeper, Kyverno 같은 Policy Engine이 Admission Controller를 확장하여 정책을 적용함
+- 이미지 서명 게이트는 클러스터 입구에서 Admission Controller(게이트 키퍼)가 요청을 가로채서 검사하는 구조
+- Kubernetes는 새로운 Pod 생성, Deployment 업데이트하기, helm install 같은 “리소스 등록” 요청을 계속 받음. 그런데 아무 요청이나 다 받으면 보안이 뚫리니까, k8s 안에 Admission Controller(게이터 키퍼)가 있음.
+- Kubernetes의 **API 서버로 들어오는 모든 리소스 생성 요청을 가로채서** 검사/변경 가능
+  - 정책 기반으로 요청을 검증(Validating)하거나 수정(Mutating)할 수 있음
+  - OPA Gatekeeper, Kyverno 같은 Policy Engine이 Admission Controller를 확장하여 정책을 적용함
 
 ### Kyverno vs OPA Gatekeeper
 - **Kyverno**: Kubernetes 네이티브 YAML 방식, 학습 곡선이 낮음
 - **OPA Gatekeeper**: Rego 언어 사용, 더 복잡하지만 강력한 정책 표현 가능
 - 둘 다 이미지 서명 검증을 지원하며, 목적에 따라 선택 가능
-
-### 이미지 서명 게이트의 중요성
-- 공급망 보안의 **마지막 방어선** 역할
-- 서명되지 않은 이미지는 클러스터에 진입할 수 없도록 차단
-- CI/CD 파이프라인에서 생성된 이미지가 변조되지 않았음을 보장
 
 ### GitOps
 - 모든 배포 상태를 Git으로 관리하는 방식
