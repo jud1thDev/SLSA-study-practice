@@ -1,0 +1,47 @@
+name: Build & Sign Image (Week 06)
+# build-sign.yaml
+on:
+  workflow_dispatch:
+
+jobs:
+  build-sign:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          IMAGE=kiku99/slsa:sha-${{ github.sha }}
+          docker build -t $IMAGE .
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Push image
+        run: docker push $IMAGE
+
+      - name: Install cosign
+        run: |
+          COSIGN_VERSION=v2.2.3
+          curl -sSL https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign-linux-amd64 \
+            -o cosign && chmod +x cosign && sudo mv cosign /usr/local/bin/
+
+      - name: Sign image with cosign (keyless)
+        run: cosign sign $IMAGE --yes
+
+      - name: Update Kubernetes Manifest
+        run: |
+          sed -i "s|image:.*|image: $IMAGE|" k8s/deployment.yaml
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add k8s/deployment.yaml
+          git commit -m "Update image to $IMAGE"
+          git push
+
