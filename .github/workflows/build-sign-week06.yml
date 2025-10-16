@@ -23,7 +23,7 @@ jobs:
       - name: Build Docker image
         working-directory: week06
         run: |
-          IMAGE=jud1thdev/slsa:sha-${{ github.sha }}
+          IMAGE=jud1th/slsa:sha-${{ github.sha }}
           docker build -t $IMAGE .
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
 

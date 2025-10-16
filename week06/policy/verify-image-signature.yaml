@@ -13,8 +13,8 @@ spec:
             - Pod
       verifyImages:
         - imageReferences:
-            - "jud1thdev/slsa*"
-            - "docker.io/jud1thdev/slsa*"
+            - "jud1th/slsa*"
+            - "docker.io/jud1th/slsa*"
           required: true
           verifyDigest: true
           attestors:
