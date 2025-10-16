@@ -135,6 +135,29 @@ GitHub Actions 워크플로우 수동 실행
 ArgoCD가 변경사항 감지 및 자동 Sync
 → **서명된 이미지가 정상적으로 배포됨**
 
+**ArgoCD 자동 Sync 확인 명령어:**
+```bash
+# ArgoCD 애플리케이션 상태 확인
+kubectl get application slsa-demo -n argocd
+
+# ArgoCD 컨트롤러 로그 확인
+kubectl logs -n argocd -l app.kubernetes.io/name=argocd-application-controller --tail=20
+
+# Kubernetes 이벤트 확인
+kubectl get events -n slsa-demo --sort-by='.lastTimestamp'
+
+# 현재 배포된 이미지 확인
+kubectl get deployment slsa-demo -n slsa-demo -o jsonpath='{.spec.template.spec.containers[0].image}'
+
+# Pod 상태 확인
+kubectl get pods -n slsa-demo
+```
+
+**확인 결과:**
+- ✅ Sync Status: `Synced`
+- ✅ Health Status: `Healthy`
+- ✅ 새로운 서명된 이미지로 배포 완료
+
 ### 8. 미서명 이미지 배포 차단 테스트
 
 로컬에서 서명 없이 이미지 빌드 및 푸시
