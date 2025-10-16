@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: verify-signed-images
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: check-signature
+      match:
+        resources:
+          kinds:
+            - Pod
+      verifyImages:
+        - imageReferences:
+            - "jud1thdev/slsa*"
+            - "docker.io/jud1thdev/slsa*"
+          required: true
+          verifyDigest: true
+          attestors:
+            - entries:
+                - keyless:
+                    rekor:
+                      url: https://rekor.sigstore.dev
+                    issuer: "https://token.actions.githubusercontent.com"
+                    subject: "https://github.com/jud1thDev/SLSA-study-practice/.github/workflows/build-sign-week06.yml@refs/heads/main"
+
