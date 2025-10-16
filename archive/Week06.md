@@ -90,7 +90,7 @@ GitHub 리포지토리에 다음 파일들을 생성:
 
 3. Kyverno 이미지 서명 검증 정책 (policy/verify-image-signature.yaml)
 
-[verify-image-signature.yaml](../week06/policy/verify-image-signature.yaml)
+[verfiy-image-signature.yaml](../week06/policy/verfiy-image-signature.yaml)
 
 4. ArgoCD Application 파일 (application.yaml)
 
