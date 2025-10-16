@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slsa-demo
+  namespace: slsa-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slsa-demo
+  template:
+    metadata:
+      labels:
+        app: slsa-demo
+    spec:
+      containers:
+        - name: app
+          image: jud1thdev/slsa:sha-initial
+          ports:
+            - containerPort: 8080
+
