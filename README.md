@@ -8,3 +8,4 @@
 [Week03.md](archive/Week03.md) <br>
 [Week04.md](archive/Week04.md) <br>
 [Week06.md](archive/Week06.md)
+[final practice](https://github.com/slsa-lab-green/report)
