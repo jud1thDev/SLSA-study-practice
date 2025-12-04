@@ -6,6 +6,5 @@
 [Week01.md](archive/Week01.md) <br>
 [Week02.md](archive/Week02.md) <br>
 [Week03.md](archive/Week03.md) <br>
-[Week04.md](archive/Week04.md) <br>
 [Week06.md](archive/Week06.md) <br>
-[final practice](https://github.com/slsa-lab-green/report)
+[final practice](https://github.com/jud1thDev/SLSA-study-practice/tree/main/report)
