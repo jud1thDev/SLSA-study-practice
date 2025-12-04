@@ -7,4 +7,4 @@
 [Week02.md](archive/Week02.md) <br>
 [Week03.md](archive/Week03.md) <br>
 [Week06.md](archive/Week06.md) <br>
-[final practice](https://github.com/jud1thDev/SLSA-study-practice/tree/main/report)
+[final practice](report\readme.md)
