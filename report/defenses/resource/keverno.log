@@ -1,0 +1,9 @@
+2025-10-22T12:48:55Z ERR github.com/kyverno/kyverno/pkg/webhooks/resource/handlers.go:227 > image verification faile
+d error="\n\nresource Deployment/slsa-simulation/slsa-simulation-app was blocked due to the following policies \n\nverify-image-signa
+ture:\n  autogen-verify-image-signature: 'failed to verify image ghcr.io/slsa-lab-blue/application:1:\n    .attestors[0].entries[0].keyless: no signatures
+found'\nverify-sbom:\n  autogen-check-sbom-attestation: 'image attestations verification failed, verifiedCount:\n    0, requiredCount: 1, error: no matchin
+g attestations: '\n" URLParams= clusterroles=["system:basic-user","system:discovery","system:public-info-viewer"] gvk="a
+pps/v1, Kind=Deployment" gvr="apps/v1, Resource=deployments" kind=Deployment logger=webhooks/resource/mutate name=slsa-
+simulation-app namespace=slsa-simulation operation=UPDATE resource.gvk="apps/v1, Kind=Deployment" roles=[] uid=
+0ed77133-dd18-4964-a7c1-2218c036ae85 user={"groups":["system:authenticated"],"uid":"24899680-367e-11ee-8325-246e96591a38","username":"nrn:PUB:Acc
+ount::3133979:Customer/static"}
